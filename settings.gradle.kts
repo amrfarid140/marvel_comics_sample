@@ -9,6 +9,7 @@ include(
     ":comics-list-domain",
     ":comics-list-data",
     ":comic-detail-ui",
+    ":comic-detail-presentation",
     ":app"
 )
 rootProject.name = "Marvel Comics"

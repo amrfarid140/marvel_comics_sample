@@ -14,6 +14,7 @@ android {
 dependencies {
     implementation(project(":lib-ui"))
     implementation(project(":lib-presentation"))
+    implementation(project(":lib-navigation"))
     implementation(project(":comics-list-presentation"))
     implementation(Dependencies.materialComponents)
     implementation(Dependencies.recyclerView)

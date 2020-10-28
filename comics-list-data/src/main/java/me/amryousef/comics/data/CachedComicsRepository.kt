@@ -2,6 +2,7 @@ package me.amryousef.comics.data
 
 import kotlinx.coroutines.withContext
 import me.amryousef.comics.data.api.ComicsService
+import me.amryousef.comics.domain.Comic
 import me.amryousef.comics.domain.ComicsPage
 import me.amryousef.comics.domain.ComicsRepository
 import me.amryousef.lib.domain.CoroutineContextProvider
@@ -28,5 +29,9 @@ class CachedComicsRepository @Inject constructor(
             inMemoryPages[pageNumber] = page
             page
         }
+    }
+
+    override fun getComic(id: Long): Comic? {
+        return inMemoryPages.values.map { it.comics }.flatten().firstOrNull { it.id == id }
     }
 }

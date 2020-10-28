@@ -6,6 +6,7 @@ import dagger.Binds
 import dagger.MapKey
 import dagger.Module
 import dagger.multibindings.IntoMap
+import me.amryousef.comic.presentation.ComicDetailViewModel
 import me.amryousef.comics.presentation.ComicsListViewModel
 import me.amryousef.lib.presentation.ViewModelFactory
 import kotlin.reflect.KClass
@@ -28,4 +29,9 @@ abstract class PresentationModule {
     @IntoMap
     @ViewModelKey(ComicsListViewModel::class)
     abstract fun bindComicsListViewModel(viewModel: ComicsListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ComicDetailViewModel::class)
+    abstract fun bindComicDetailViewModel(viewModel: ComicDetailViewModel): ViewModel
 }

@@ -13,6 +13,4 @@ android {
 dependencies {
     implementation(Dependencies.navigationUI)
     implementation(Dependencies.navigationFragment)
-    implementation(project(":comics-list-ui"))
-    implementation(project(":comic-detail-ui"))
 }

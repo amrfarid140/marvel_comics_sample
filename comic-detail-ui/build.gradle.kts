@@ -14,7 +14,8 @@ android {
 dependencies {
     implementation(project(":lib-ui"))
     implementation(project(":lib-presentation"))
-    implementation(project(":comics-list-presentation"))
+    implementation(project(":lib-navigation"))
+    implementation(project(":comic-detail-presentation"))
     implementation(Dependencies.materialComponents)
     implementation(Dependencies.constraintLayout)
     implementation(Dependencies.fragmentKtx)
@@ -22,4 +23,5 @@ dependencies {
     implementation(Dependencies.liveData)
     implementation(Dependencies.viewModel)
     implementation(Dependencies.picasso)
+    implementation(Dependencies.navigationFragment)
 }
