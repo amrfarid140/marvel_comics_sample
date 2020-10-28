@@ -1,6 +1,5 @@
 package me.amryousef.comics
 
-import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -22,12 +21,8 @@ class RefreshOnEndListener(
         super.onScrolled(recyclerView, dx, dy)
         val lastVisibleItemPosition =
             (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-        Log.d("AmrVisible", lastVisibleItemPosition.toString())
-        if (
-            (
-                (recyclerView.layoutManager?.itemCount ?: 0) <=
-                    lastVisibleItemPosition + VISIBLE_ITEMS_THRESHOLD
-                ) &&
+        if (((recyclerView.layoutManager?.itemCount ?: 0) <=
+                    lastVisibleItemPosition + VISIBLE_ITEMS_THRESHOLD) &&
             visibleItems.filterIsInstance<ComicItemData.LoadingPlaceholder>().isEmpty()
         ) {
             onRefreshRequested()

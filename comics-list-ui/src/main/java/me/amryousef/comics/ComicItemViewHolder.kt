@@ -1,6 +1,5 @@
 package me.amryousef.comics
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.squareup.picasso.Picasso
@@ -18,7 +17,6 @@ class ComicItemViewHolder(
         val binding = RowComicItemBinding.bind(itemView)
         binding.root.setOnClickListener { onItemSelected(position) }
         binding.comicItemTitle.text = data.title
-        Log.d("AMR", "${data.imageUrl}/landscape_incredible.${data.imageExtension}")
         Picasso
             .get()
             .load("${data.imageUrl}/landscape_incredible.${data.imageExtension}")
