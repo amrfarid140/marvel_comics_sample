@@ -24,4 +24,8 @@ class ComicDetailViewModel @Inject constructor(
             ViewState.Error
         }
     }
+
+    override fun onCleared() {
+        super.onCleared()
+    }
 }
