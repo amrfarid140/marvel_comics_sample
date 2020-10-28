@@ -21,8 +21,10 @@ class RefreshOnEndListener(
         super.onScrolled(recyclerView, dx, dy)
         val lastVisibleItemPosition =
             (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
-        if (((recyclerView.layoutManager?.itemCount ?: 0) <=
-                    lastVisibleItemPosition + VISIBLE_ITEMS_THRESHOLD) &&
+        if ((
+            (recyclerView.layoutManager?.itemCount ?: 0) <=
+                lastVisibleItemPosition + VISIBLE_ITEMS_THRESHOLD
+            ) &&
             visibleItems.filterIsInstance<ComicItemData.LoadingPlaceholder>().isEmpty()
         ) {
             onRefreshRequested()
