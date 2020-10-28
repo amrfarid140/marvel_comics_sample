@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.amryousef.comics.domain.FetchComicsPageUseCase
 import me.amryousef.lib.domain.UseCaseResult
+import me.amryousef.lib.presentation.SingleLiveEvent
 import me.amryousef.lib.presentation.ViewState
 import javax.inject.Inject
 
@@ -16,6 +17,12 @@ class ComicsListViewModel @Inject constructor(
 ) : ViewModel() {
     private val _state = MutableLiveData<ViewState<ComicsListState>>()
     val state: LiveData<ViewState<ComicsListState>> get() = _state
+
+    private val _navigation = SingleLiveEvent<ComicsListNavigation>()
+    val navigation: LiveData<ComicsListNavigation> get() = _navigation
+
+    private val _event = SingleLiveEvent<ComicsListEvent>()
+    val event: LiveData<ComicsListEvent> get() = _event
 
     private val currentPage: Int
         get() {
@@ -30,11 +37,10 @@ class ComicsListViewModel @Inject constructor(
     fun loadData() {
         viewModelScope.launch {
             addLoadingPlaceHolder()
-            val result = fetchComicsListUseCase.execute(currentPage + 1)
-            _state.value = when (result) {
+            when (val result = fetchComicsListUseCase.execute(currentPage + 1)) {
                 is UseCaseResult.Success -> {
                     val newState = stateMapper.map(result.data)
-                    (_state.value as? ViewState.Ready)?.let {
+                    _state.value = (_state.value as? ViewState.Ready)?.let {
                         ViewState.Ready(
                             data = it.data.copy(
                                 items = mutableListOf<ComicListItemState>().apply {
@@ -46,7 +52,24 @@ class ComicsListViewModel @Inject constructor(
                         )
                     } ?: ViewState.Ready(newState)
                 }
-                is UseCaseResult.Error -> ViewState.Error
+                is UseCaseResult.Error -> {
+                    _event.value = ComicsListEvent.LoadMoreFailed
+                    _state.value = (_state.value as? ViewState.Ready)?.let {
+                        ViewState.Ready(
+                            data = it.data.copy(
+                                items = it.data.items.filterIsInstance<ComicListItemState.Item>()
+                            )
+                        )
+                    }
+                }
+            }
+        }
+    }
+
+    fun onItemSelected(position: Int) {
+        (_state.value as? ViewState.Ready)?.let { readyState ->
+            (readyState.data.items[position] as? ComicListItemState.Item)?.let { item ->
+                _navigation.value = ComicsListNavigation.Detail(item.id)
             }
         }
     }

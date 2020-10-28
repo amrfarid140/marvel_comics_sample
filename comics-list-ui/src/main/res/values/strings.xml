@@ -2,4 +2,5 @@
 <resources>
     <string name="comics_list_error_text">Error Loading content</string>
     <string name="comics_list_error_retry_button_text">Retry</string>
+    <string name="load_more_error">Something went wrong</string>
 </resources>

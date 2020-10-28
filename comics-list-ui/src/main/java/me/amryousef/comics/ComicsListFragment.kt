@@ -3,14 +3,18 @@ package me.amryousef.comics
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.support.AndroidSupportInjection
+import me.amryousef.comics.presentation.ComicsListEvent
+import me.amryousef.comics.presentation.ComicsListNavigation
 import me.amryousef.comics.presentation.ComicsListState
 import me.amryousef.comics.presentation.ComicsListViewModel
 import me.amryousef.lib.presentation.ViewState
+import me.amryousef.lib.ui.Navigator
 import me.amryousef.marvelcomics.comics.R
 import me.amryousef.marvelcomics.comics.databinding.FragmentComicsBinding
 import javax.inject.Inject
@@ -23,11 +27,18 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
     @Inject
     lateinit var mapper: ViewDataMapper
 
+    @Inject
+    lateinit var navigator: Navigator
+
     private val viewModel: ComicsListViewModel by viewModels { viewModelFactory }
     private val refreshOnEndListener: RefreshOnEndListener by lazy {
         RefreshOnEndListener { viewModel.loadData() }
     }
-    private val adapter = ComicsAdapter()
+    private val adapter by lazy {
+        ComicsAdapter {
+            viewModel.onItemSelected(it)
+        }
+    }
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -41,6 +52,8 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
         binding.comicsList.addOnScrollListener(refreshOnEndListener)
         binding.comicsListErrorRetryButton.setOnClickListener { viewModel.loadData() }
         viewModel.state.observe(viewLifecycleOwner) { binding.renderState(it) }
+        viewModel.event.observe(viewLifecycleOwner) { handleEvent(it) }
+        viewModel.navigation.observe(viewLifecycleOwner) { handleNavigation(it) }
     }
 
     private fun FragmentComicsBinding.renderState(state: ViewState<ComicsListState>) =
@@ -69,5 +82,18 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
         comicsListProgress.isVisible = true
         comicsList.isVisible = false
         comicsListErrorGroup.isVisible = false
+    }
+
+    private fun handleNavigation(navigation: ComicsListNavigation) = when (navigation) {
+        is ComicsListNavigation.Detail -> navigator.navigateToComicDetail(navigation.id)
+    }
+
+    private fun handleEvent(event: ComicsListEvent) = when (event) {
+        is ComicsListEvent.LoadMoreFailed ->
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.load_more_error),
+                Toast.LENGTH_SHORT
+            ).show()
     }
 }

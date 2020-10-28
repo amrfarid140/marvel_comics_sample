@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Marvel Comics</string>
-    <string name="comics_list_title">Comics List</string>
+    <string name="toolbar_title_comics_list">Comics List</string>
+    <string name="toolbar_title_comic_details">Details</string>
 </resources>

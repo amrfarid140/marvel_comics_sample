@@ -4,7 +4,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-class ComicsAdapter : ListAdapter<ComicItemData, ComicListViewHolder<*>>(ItemCallback()) {
+class ComicsAdapter(private val onItemSelected: (position: Int) -> Unit) :
+    ListAdapter<ComicItemData, ComicListViewHolder<*>>(ItemCallback()) {
 
     override fun getItemViewType(position: Int) = when (getItem(position)) {
         is ComicItemData.Item -> ComicItemData.ViewType.ITEM.ordinal
@@ -14,14 +15,17 @@ class ComicsAdapter : ListAdapter<ComicItemData, ComicListViewHolder<*>>(ItemCal
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         when (ComicItemData.ViewType.values()[viewType]) {
             ComicItemData.ViewType.LOADING -> ComicListLoadingPlaceholder(parent)
-            ComicItemData.ViewType.ITEM -> ComicItemViewHolder(parent)
+            ComicItemData.ViewType.ITEM -> ComicItemViewHolder(parent) {
+                onItemSelected(it)
+            }
         }
 
     override fun onBindViewHolder(holder: ComicListViewHolder<*>, position: Int) =
         when (val data = getItem(position)) {
-            is ComicItemData.Item -> (holder as ComicItemViewHolder).bind(data)
+            is ComicItemData.Item -> (holder as ComicItemViewHolder).bind(data, position)
             is ComicItemData.LoadingPlaceholder -> (holder as ComicListLoadingPlaceholder).bind(
-                data
+                data,
+                position
             )
         }
 

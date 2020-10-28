@@ -1,10 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/comicsListFragment">
 
     <fragment
         android:id="@+id/comicsListFragment"
         android:name="me.amryousef.comics.ComicsListFragment"
-        android:label="ComicsListFragment" />
+        android:label="ComicsListFragment">
+        <action
+            android:id="@+id/action_comicsListFragment_to_comicDetailFragment"
+            app:destination="@id/comicDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/comicDetailFragment"
+        android:name="me.amryousef.comic.ComicDetailFragment"
+        android:label="ComicDetailFragment">
+        <argument
+            android:name="id"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
 </navigation>

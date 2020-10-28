@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":lib-data"))
     implementation(project(":lib-domain"))
     implementation(project(":lib-presentation"))
+    implementation(project(":comic-detail-ui"))
     implementation(project(":comics-list-ui"))
     implementation(project(":comics-list-presentation"))
     implementation(project(":comics-list-domain"))

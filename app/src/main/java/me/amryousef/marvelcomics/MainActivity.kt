@@ -47,8 +47,11 @@ class MainActivity : AppCompatActivity(), HasAndroidInjector {
             arguments: Bundle?
         ) {
             when (destination.id) {
-                R.id.comicsListFragment ->
-                    toolbar.title = toolbar.context.getString(R.string.comics_list_title)
+                R.id.comicsListFragment -> {
+                    toolbar.title = toolbar.context.getString(R.string.toolbar_title_comics_list)
+                }
+                R.id.comicDetailFragment ->
+                    toolbar.title = toolbar.context.getString(R.string.toolbar_title_comic_details)
             }
         }
     }

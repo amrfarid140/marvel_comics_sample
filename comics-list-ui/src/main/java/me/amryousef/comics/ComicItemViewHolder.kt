@@ -9,12 +9,14 @@ import me.amryousef.marvelcomics.comics.databinding.RowComicItemBinding
 
 class ComicItemViewHolder(
     parent: ViewGroup,
+    private val onItemSelected: (position: Int) -> Unit
 ) : ComicListViewHolder<ComicItemData.Item>(
     LayoutInflater.from(parent.context).inflate(R.layout.row_comic_item, parent, false)
 ) {
 
-    override fun bind(data: ComicItemData.Item) {
+    override fun bind(data: ComicItemData.Item, position: Int) {
         val binding = RowComicItemBinding.bind(itemView)
+        binding.root.setOnClickListener { onItemSelected(position) }
         binding.comicItemTitle.text = data.title
         Log.d("AMR", "${data.imageUrl}/landscape_incredible.${data.imageExtension}")
         Picasso

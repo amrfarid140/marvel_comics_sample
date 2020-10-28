@@ -5,5 +5,5 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class ComicListViewHolder<DATA : ComicItemData>(view: View) :
     RecyclerView.ViewHolder(view) {
-    abstract fun bind(data: DATA)
+    abstract fun bind(data: DATA, position: Int)
 }

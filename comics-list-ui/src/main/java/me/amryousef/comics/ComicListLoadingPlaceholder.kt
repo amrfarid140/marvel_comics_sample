@@ -9,7 +9,7 @@ class ComicListLoadingPlaceholder(
 ) : ComicListViewHolder<ComicItemData.LoadingPlaceholder>(
     LayoutInflater.from(parent.context).inflate(R.layout.row_loading_placeholder, parent, false)
 ) {
-    override fun bind(data: ComicItemData.LoadingPlaceholder) {
+    override fun bind(data: ComicItemData.LoadingPlaceholder, position: Int) {
         // NO-OP
     }
 }
