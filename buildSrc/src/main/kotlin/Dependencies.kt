@@ -2,7 +2,7 @@ object Versions {
     const val kotlinVersion = "1.4.0"
     const val androidGradlePlugin = "4.1.0"
     const val detektVersion = "1.11.0-RC2"
-    const val coroutinesVersion = "1.3.8"
+    const val coroutinesVersion = "1.4.0"
     const val coreKtx = "1.3.1"
     const val appCompat = "1.2.0"
     const val materialComponents = "1.2.0"
@@ -13,12 +13,15 @@ object Versions {
     const val lifecycleVersion = "2.2.0"
     const val daggerVersion = "2.28.3"
     const val moshiVersion = "1.9.3"
+    const val coilVersion = "1.0.0"
+    const val retrofitVersion = "2.9.0"
 }
 
 object ClassPath {
     const val androidGradlePlugin = "com.android.tools.build:gradle:${Versions.androidGradlePlugin}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlinVersion}"
     const val detekt = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:${Versions.detektVersion}"
+    const val navigationSafeArgs = "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigationVersion}"
 }
 
 object Dependencies {
@@ -35,6 +38,9 @@ object Dependencies {
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
     const val liveData = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycleVersion}"
     const val viewModel  = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
+
+    const val moshiKotlin = "com.squareup.moshi:moshi-kotlin:1.11.0"
+    const val moshiAdapters = "com.squareup.moshi:moshi-adapters:${Versions.moshiVersion}"
     const val moshi = "com.squareup.moshi:moshi:${Versions.moshiVersion}"
     const val moshiCodegen = "com.squareup.moshi:moshi-kotlin-codegen:${Versions.moshiVersion}"
 
@@ -43,6 +49,13 @@ object Dependencies {
     const val daggerAndroid = "com.google.dagger:dagger-android:${Versions.daggerVersion}"
     const val daggerAndroidProcessor = "com.google.dagger:dagger-android-processor:${Versions.daggerVersion}"
     const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.daggerVersion}"
+    const val javaxInject = "javax.inject:javax.inject:1"
+
+    const val coil = "io.coil-kt:coil:${Versions.coilVersion}"
+
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
+    const val retrofitLogger = "com.squareup.okhttp3:logging-interceptor:4.9.0"
+    const val retrofitMoshi = "com.squareup.retrofit2:converter-moshi:${Versions.retrofitVersion}"
 }
 
 object TestDependencies {

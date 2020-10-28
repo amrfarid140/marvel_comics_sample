@@ -49,6 +49,15 @@ android {
 
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.0.10")
+    implementation(project(":lib-ui"))
+    implementation(project(":lib-navigation"))
+    implementation(project(":lib-data"))
+    implementation(project(":lib-domain"))
+    implementation(project(":lib-presentation"))
+    implementation(project(":comics-list-ui"))
+    implementation(project(":comics-list-presentation"))
+    implementation(project(":comics-list-domain"))
+    implementation(project(":comics-list-data"))
     implementation(Dependencies.kotlinStdLib)
     implementation(Dependencies.coreKtx)
     implementation(Dependencies.appCompat)
@@ -58,8 +67,15 @@ dependencies {
     implementation(Dependencies.navigationFragment)
     implementation(Dependencies.navigationUI)
     implementation(Dependencies.constraintLayout)
+    implementation(Dependencies.retrofit)
+    implementation(Dependencies.retrofitMoshi)
+    implementation(Dependencies.retrofitLogger)
+
     implementation(Dependencies.moshi)
+    implementation(Dependencies.moshiAdapters)
+    implementation(Dependencies.moshiKotlin)
     kapt(Dependencies.moshiCodegen)
+
     implementation(Dependencies.dagger)
     implementation(Dependencies.daggerAndroid)
     implementation(Dependencies.daggerAndroidSupport)

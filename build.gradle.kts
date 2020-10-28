@@ -15,6 +15,7 @@ buildscript {
         classpath(ClassPath.androidGradlePlugin)
         classpath(ClassPath.kotlinGradlePlugin)
         classpath(ClassPath.detekt)
+        classpath(ClassPath.navigationSafeArgs)
     }
 }
 

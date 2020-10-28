@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="comics_list_error_text">Error Loading content</string>
+    <string name="comics_list_error_retry_button_text">Retry</string>
+</resources>
