@@ -8,10 +8,14 @@ import javax.inject.Inject
 class ComicsListStateMapper @Inject constructor() {
     fun map(from: ComicsPage): ComicsListState {
         return ComicsListState(
-            from.pageNumber,
-            from.pageNumber,
-            from.pageNumber,
-            items = emptyList()
+            currentPage = from.pageNumber,
+            items = from.comics.map { comic ->
+                ComicListItemState(
+                    title = comic.title,
+                    imageUrl = comic.imageUrl,
+                    imageExtension = comic.imageExtension
+                )
+            }
         )
     }
 }

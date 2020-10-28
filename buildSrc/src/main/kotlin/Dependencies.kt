@@ -13,8 +13,9 @@ object Versions {
     const val lifecycleVersion = "2.2.0"
     const val daggerVersion = "2.28.3"
     const val moshiVersion = "1.9.3"
-    const val coilVersion = "1.0.0"
+    const val picassoVersion = "2.71828"
     const val retrofitVersion = "2.9.0"
+
 }
 
 object ClassPath {
@@ -51,7 +52,7 @@ object Dependencies {
     const val daggerAndroidSupport = "com.google.dagger:dagger-android-support:${Versions.daggerVersion}"
     const val javaxInject = "javax.inject:javax.inject:1"
 
-    const val coil = "io.coil-kt:coil:${Versions.coilVersion}"
+    const val picasso = "com.squareup.picasso:picasso:${Versions.picassoVersion}"
 
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
     const val retrofitLogger = "com.squareup.okhttp3:logging-interceptor:4.9.0"

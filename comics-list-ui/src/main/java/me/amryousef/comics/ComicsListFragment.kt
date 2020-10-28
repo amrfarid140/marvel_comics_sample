@@ -20,6 +20,9 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
+    @Inject
+    lateinit var mapper: ViewDataMapper
+
     private val viewModel: ComicsListViewModel by viewModels { viewModelFactory }
     private val adapter = ComicsAdapter()
 
@@ -31,6 +34,7 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentComicsBinding.bind(view)
+        binding.comicsList.adapter = adapter
         binding.comicsListErrorRetryButton.setOnClickListener { viewModel.loadData() }
         viewModel.state.observe(viewLifecycleOwner) { binding.renderState(it) }
     }
@@ -48,6 +52,7 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
     }
 
     private fun FragmentComicsBinding.renderReady(state: ViewState.Ready<ComicsListState>) {
+        adapter.submitList(mapper.from(state.data.items))
         comicsList.isVisible = true
         comicsListProgress.isVisible = false
         comicsListErrorGroup.isVisible = false

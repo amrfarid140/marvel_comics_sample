@@ -6,5 +6,6 @@ data class Comic(
     val issueNumber: Double,
     val description: String,
     val imageUrl: String,
+    val imageExtension: String,
     val creators: List<ComicCreator>
 )

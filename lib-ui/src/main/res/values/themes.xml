@@ -2,36 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.MarvelComics" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="colorPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="colorOnPrimary">@color/marvel_red</item>
         <item name="colorSecondary">@color/marvel_red</item>
         <item name="colorOnSecondary">@color/white</item>
         <item name="colorSurface">@color/marvel_red</item>
         <item name="colorOnSurface">@color/white</item>
-        <item name="textAppearanceHeadline1">@style/MarvelHeadline1</item>
-        <item name="textAppearanceHeadline2">@style/MarvelHeadline2</item>
-        <item name="textAppearanceHeadline3">@style/MarvelHeadline3</item>
-        <item name="textAppearanceHeadline4">@style/MarvelHeadline4</item>
-        <item name="textAppearanceHeadline5">@style/MarvelHeadline5</item>
-        <item name="textAppearanceHeadline6">@style/MarvelHeadline6</item>
-    </style>
-
-    <style name="MarvelHeadline1" parent="TextAppearance.MaterialComponents.Headline1">
-        <item name="fontFamily">@font/marvelregular</item>
-    </style>
-    <style name="MarvelHeadline2" parent="TextAppearance.MaterialComponents.Headline2">
-        <item name="fontFamily">@font/marvelregular</item>
-    </style>
-    <style name="MarvelHeadline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="fontFamily">@font/marvelregular</item>
-    </style>
-    <style name="MarvelHeadline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="fontFamily">@font/marvelregular</item>
-    </style>
-    <style name="MarvelHeadline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="fontFamily">@font/marvelregular</item>
-    </style>
-    <style name="MarvelHeadline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">@font/marvelregular</item>
     </style>
 
 </resources>

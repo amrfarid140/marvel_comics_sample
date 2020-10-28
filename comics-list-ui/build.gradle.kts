@@ -21,5 +21,5 @@ dependencies {
     implementation(Dependencies.daggerAndroidSupport)
     implementation(Dependencies.liveData)
     implementation(Dependencies.viewModel)
-    implementation(Dependencies.coil)
+    implementation(Dependencies.picasso)
 }

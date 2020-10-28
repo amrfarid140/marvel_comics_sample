@@ -15,15 +15,13 @@ class ComicsPageMapper @Inject constructor() {
             comics = apiResponse
                 .data
                 ?.results
-                ?.filter { it.description != null }
                 ?.map { data ->
                     Comic(
                         id = data.id ?: error("Comic ID cannot be null"),
                         title = data.title ?: error("Comic title cannot be null"),
-                        description = data.description ?: error("Comic description cannot be null"),
-                        imageUrl = data.thumbnail?.run {
-                            "$path$extension"
-                        } ?: error("Comic thumbnail cannot be null"),
+                        description = data.description ?: "",
+                        imageUrl = data.thumbnail?.path ?: error("Comic thumbnail cannot be null"),
+                        imageExtension = data.thumbnail.extension ?: error("Comic thumbnail cannot be null"),
                         issueNumber = data.issueNumber ?: 0.0,
                         creators = data.creators?.run {
                             items?.map { creator ->
