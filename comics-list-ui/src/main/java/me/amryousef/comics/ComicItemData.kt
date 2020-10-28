@@ -1,7 +1,15 @@
 package me.amryousef.comics
 
-data class ComicItemData(
-    val title: String,
-    val imageUrl: String,
-    val imageExtension: String
-)
+sealed class ComicItemData {
+    data class Item(
+        val title: String,
+        val imageUrl: String,
+        val imageExtension: String
+    ) : ComicItemData()
+
+    object LoadingPlaceholder : ComicItemData()
+
+    enum class ViewType {
+        LOADING, ITEM
+    }
+}

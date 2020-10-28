@@ -10,7 +10,7 @@ class ComicsListStateMapper @Inject constructor() {
         return ComicsListState(
             currentPage = from.pageNumber,
             items = from.comics.map { comic ->
-                ComicListItemState(
+                ComicListItemState.Item(
                     title = comic.title,
                     imageUrl = comic.imageUrl,
                     imageExtension = comic.imageExtension

@@ -7,10 +7,14 @@ import javax.inject.Inject
 @Reusable
 class ViewDataMapper @Inject constructor() {
     fun from(stateItems: List<ComicListItemState>) = stateItems.map { stateItem ->
-        ComicItemData(
-            title = stateItem.title,
-            imageUrl = stateItem.imageUrl,
-            imageExtension = stateItem.imageExtension
-        )
+        when (stateItem) {
+            is ComicListItemState.LoadingPlaceholder -> ComicItemData.LoadingPlaceholder
+            is ComicListItemState.Item ->
+                ComicItemData.Item(
+                    title = stateItem.title,
+                    imageUrl = stateItem.imageUrl,
+                    imageExtension = stateItem.imageExtension
+                )
+        }
     }
 }

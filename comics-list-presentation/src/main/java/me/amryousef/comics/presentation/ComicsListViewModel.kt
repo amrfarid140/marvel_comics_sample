@@ -23,17 +23,44 @@ class ComicsListViewModel @Inject constructor(
         }
 
     init {
+        _state.value = ViewState.Loading
         loadData()
     }
 
     fun loadData() {
         viewModelScope.launch {
-            _state.value = ViewState.Loading
+            addLoadingPlaceHolder()
             val result = fetchComicsListUseCase.execute(currentPage + 1)
             _state.value = when (result) {
-                is UseCaseResult.Success -> ViewState.Ready(stateMapper.map(result.data))
+                is UseCaseResult.Success -> {
+                    val newState = stateMapper.map(result.data)
+                    (_state.value as? ViewState.Ready)?.let {
+                        ViewState.Ready(
+                            data = it.data.copy(
+                                items = mutableListOf<ComicListItemState>().apply {
+                                    addAll(it.data.items.filterIsInstance<ComicListItemState.Item>())
+                                    addAll(newState.items)
+                                },
+                                currentPage = newState.currentPage
+                            )
+                        )
+                    } ?: ViewState.Ready(newState)
+                }
                 is UseCaseResult.Error -> ViewState.Error
             }
+        }
+    }
+
+    private fun addLoadingPlaceHolder() {
+        (_state.value as? ViewState.Ready)?.let {
+            _state.value = ViewState.Ready(
+                data = it.data.copy(
+                    items = mutableListOf<ComicListItemState>().apply {
+                        addAll(it.data.items)
+                        add(ComicListItemState.LoadingPlaceholder)
+                    },
+                )
+            )
         }
     }
 }

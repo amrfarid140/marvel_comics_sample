@@ -24,6 +24,9 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
     lateinit var mapper: ViewDataMapper
 
     private val viewModel: ComicsListViewModel by viewModels { viewModelFactory }
+    private val refreshOnEndListener: RefreshOnEndListener by lazy {
+        RefreshOnEndListener { viewModel.loadData() }
+    }
     private val adapter = ComicsAdapter()
 
     override fun onAttach(context: Context) {
@@ -35,15 +38,17 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentComicsBinding.bind(view)
         binding.comicsList.adapter = adapter
+        binding.comicsList.addOnScrollListener(refreshOnEndListener)
         binding.comicsListErrorRetryButton.setOnClickListener { viewModel.loadData() }
         viewModel.state.observe(viewLifecycleOwner) { binding.renderState(it) }
     }
 
-    private fun FragmentComicsBinding.renderState(state: ViewState<ComicsListState>) = when (state) {
-        is ViewState.Ready -> renderReady(state)
-        is ViewState.Error -> renderError()
-        is ViewState.Loading -> renderLoading()
-    }
+    private fun FragmentComicsBinding.renderState(state: ViewState<ComicsListState>) =
+        when (state) {
+            is ViewState.Ready -> renderReady(state)
+            is ViewState.Error -> renderError()
+            is ViewState.Loading -> renderLoading()
+        }
 
     private fun FragmentComicsBinding.renderError() {
         comicsListErrorGroup.isVisible = true
@@ -52,7 +57,9 @@ class ComicsListFragment : Fragment(R.layout.fragment_comics) {
     }
 
     private fun FragmentComicsBinding.renderReady(state: ViewState.Ready<ComicsListState>) {
-        adapter.submitList(mapper.from(state.data.items))
+        val items = mapper.from(state.data.items)
+        adapter.submitList(items)
+        refreshOnEndListener.updateItems(items)
         comicsList.isVisible = true
         comicsListProgress.isVisible = false
         comicsListErrorGroup.isVisible = false

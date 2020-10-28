@@ -4,16 +4,30 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 
-class ComicsAdapter : ListAdapter<ComicItemData, ComicItemViewHolder>(ItemCallback()) {
+class ComicsAdapter : ListAdapter<ComicItemData, ComicListViewHolder<*>>(ItemCallback()) {
+
+    override fun getItemViewType(position: Int) = when (getItem(position)) {
+        is ComicItemData.Item -> ComicItemData.ViewType.ITEM.ordinal
+        is ComicItemData.LoadingPlaceholder -> ComicItemData.ViewType.LOADING.ordinal
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ComicItemViewHolder(parent)
+        when (ComicItemData.ViewType.values()[viewType]) {
+            ComicItemData.ViewType.LOADING -> ComicListLoadingPlaceholder(parent)
+            ComicItemData.ViewType.ITEM -> ComicItemViewHolder(parent)
+        }
 
-    override fun onBindViewHolder(holder: ComicItemViewHolder, position: Int) =
-        holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ComicListViewHolder<*>, position: Int) =
+        when (val data = getItem(position)) {
+            is ComicItemData.Item -> (holder as ComicItemViewHolder).bind(data)
+            is ComicItemData.LoadingPlaceholder -> (holder as ComicListLoadingPlaceholder).bind(
+                data
+            )
+        }
 
     private class ItemCallback : DiffUtil.ItemCallback<ComicItemData>() {
-        override fun areItemsTheSame(oldItem: ComicItemData, newItem: ComicItemData) = true
+        override fun areItemsTheSame(oldItem: ComicItemData, newItem: ComicItemData) =
+            oldItem::class.java == newItem::class.java
 
         override fun areContentsTheSame(oldItem: ComicItemData, newItem: ComicItemData) =
             oldItem == newItem

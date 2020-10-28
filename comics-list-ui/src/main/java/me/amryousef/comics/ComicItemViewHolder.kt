@@ -3,23 +3,23 @@ package me.amryousef.comics
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import me.amryousef.marvelcomics.comics.R
 import me.amryousef.marvelcomics.comics.databinding.RowComicItemBinding
 
 class ComicItemViewHolder(
     parent: ViewGroup,
-) : RecyclerView.ViewHolder(
+) : ComicListViewHolder<ComicItemData.Item>(
     LayoutInflater.from(parent.context).inflate(R.layout.row_comic_item, parent, false)
 ) {
-    fun bind(item: ComicItemData) {
+
+    override fun bind(data: ComicItemData.Item) {
         val binding = RowComicItemBinding.bind(itemView)
-        binding.comicItemTitle.text = item.title
-        Log.d("AMR", "${item.imageUrl}/landscape_incredible.${item.imageExtension}")
+        binding.comicItemTitle.text = data.title
+        Log.d("AMR", "${data.imageUrl}/landscape_incredible.${data.imageExtension}")
         Picasso
             .get()
-            .load("${item.imageUrl}/landscape_incredible.${item.imageExtension}")
+            .load("${data.imageUrl}/landscape_incredible.${data.imageExtension}")
             .placeholder(R.drawable.image_placeholder)
             .error(R.drawable.image_placeholder)
             .into(binding.comicItemImage)
