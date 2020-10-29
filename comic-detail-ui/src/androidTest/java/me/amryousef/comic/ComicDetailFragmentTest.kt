@@ -2,16 +2,21 @@ package me.amryousef.comic
 
 import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.test.rule.ActivityTestRule
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
+import me.amryousef.comic.presentation.ComicDetailState
 import me.amryousef.comic.presentation.ComicDetailViewModel
 import me.amryousef.lib.presentation.ViewState
 import me.amryousef.lib.ui.Navigator
+import me.amryousef.lib.ui.test.fragmentTest
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -22,9 +27,6 @@ class ComicDetailFragmentTest {
     @get:Rule
     val instantTaskExecutable = InstantTaskExecutorRule()
 
-    @get:Rule
-    val rule = ActivityTestRule(TestActivity::class.java)
-
     private val mockViewModel = mockk<ComicDetailViewModel>(relaxed = true) {
         every { loadData(any()) } returns ViewState.Error
     }
@@ -33,21 +35,31 @@ class ComicDetailFragmentTest {
     }
 
     @Test
-    fun test() {
-        val x = InjectableActivityScenario()
-        x.injectFragment<ComicDetailFragment> {
-            viewModelFactory = mockk {
-                every { create<ComicDetailViewModel>(any()) } returns(mockViewModel)
-            }
-            navigator = mockNavigator
+    fun givenComicId_WhenViewStateIsError_ThenPopNavigator() =
+        fragmentTest(bundle = Bundle().apply { putLong("id", 123) }, injector = ::inject) {
+            it.onActivity { verify { mockNavigator.pop() } }
         }
-        x.displayFragment(
-            ComicDetailFragment().apply {
-                arguments = Bundle().apply { putLong("id", 123) }
-            }
+
+    @Test
+    fun givenComicId_WhenViewStateIsReady_ThenDetailsIsVisible() {
+        every { mockViewModel.loadData(any()) } returns ViewState.Ready(
+            ComicDetailState(
+                "https://test.com",
+                ".png",
+                "Test Title",
+                "Test Description"
+            )
         )
-        x.scenario.onActivity {
-            verify { mockNavigator.pop() }
+        fragmentTest(bundle = Bundle().apply { putLong("id", 123) }, injector = ::inject) {
+            onView(withText("Test Title")).check(matches(isDisplayed()))
+            onView(withText("Test Description")).check(matches(isDisplayed()))
         }
+    }
+
+    private fun inject(fragment: ComicDetailFragment) {
+        fragment.viewModelFactory = mockk {
+            every { create<ComicDetailViewModel>(any()) } returns (mockViewModel)
+        }
+        fragment.navigator = mockNavigator
     }
 }

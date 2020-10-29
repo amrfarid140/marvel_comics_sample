@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="me.amryousef.marvelcomics.lib.ui.testing">
+
+    <application>
+        <activity android:theme="@style/Theme.MarvelComics" android:name="me.amryousef.lib.ui.test.TestActivity" />
+    </application>
+</manifest>

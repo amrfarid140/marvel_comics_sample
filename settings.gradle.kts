@@ -1,4 +1,5 @@
 include(
+    ":lib-ui-test",
     ":lib-ui",
     ":lib-navigation",
     ":lib-data",

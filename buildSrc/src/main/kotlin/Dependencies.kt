@@ -61,9 +61,15 @@ object Dependencies {
 
 object TestDependencies {
     const val junit = "junit:junit:4.13"
+    const val mockk = "io.mockk:mockk-android:1.10.2"
 }
 
 object AndroidTestDependencies {
+    const val coreTesting = "androidx.arch.core:core-testing:2.1.0"
+    const val fragmentTesting = "androidx.fragment:fragment-testing:1.2.5"
+    const val testCore = "androidx.test:core:1.0.0"
+    const val testRunner = "androidx.test:runner:1.1.0"
+    const val testRules = "androidx.test:rules:1.1.0"
     const val androidJunitExt = "androidx.test.ext:junit:1.1.1"
     const val espressoCore = "androidx.test.espresso:espresso-core:3.2.0"
 }
