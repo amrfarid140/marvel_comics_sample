@@ -15,4 +15,6 @@ dependencies {
     implementation(Dependencies.moshi)
     implementation(Dependencies.retrofit)
     implementation(Dependencies.javaxInject)
+
+    implementation(TestDependencies.junit)
 }

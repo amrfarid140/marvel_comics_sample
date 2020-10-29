@@ -85,6 +85,7 @@ dependencies {
     kapt(Dependencies.daggerAndroidProcessor)
 
     testImplementation(TestDependencies.junit)
+    testImplementation(TestDependencies.kotlinTest)
     androidTestImplementation(AndroidTestDependencies.androidJunitExt)
     androidTestImplementation(AndroidTestDependencies.espressoCore)
 }

@@ -61,6 +61,7 @@ object Dependencies {
 
 object TestDependencies {
     const val junit = "junit:junit:4.13"
+    const val kotlinTest = "org.jetbrains.kotlin:kotlin-test:${Versions.kotlinVersion}"
     const val mockk = "io.mockk:mockk-android:1.10.2"
 }
 
