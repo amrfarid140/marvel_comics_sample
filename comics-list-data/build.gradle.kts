@@ -17,4 +17,5 @@ dependencies {
     implementation(Dependencies.javaxInject)
 
     implementation(TestDependencies.junit)
+    implementation(TestDependencies.kotlinTest)
 }
