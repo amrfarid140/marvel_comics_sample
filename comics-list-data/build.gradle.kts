@@ -16,8 +16,8 @@ dependencies {
     implementation(Dependencies.retrofit)
     implementation(Dependencies.javaxInject)
 
-    implementation(TestDependencies.junit)
-    implementation(TestDependencies.kotlinTest)
-    implementation(TestDependencies.mockk)
-    implementation(TestDependencies.coroutinesTest)
+    testImplementation(TestDependencies.junit)
+    testImplementation(TestDependencies.kotlinTest)
+    testImplementation(TestDependencies.mockk)
+    testImplementation(TestDependencies.coroutinesTest)
 }

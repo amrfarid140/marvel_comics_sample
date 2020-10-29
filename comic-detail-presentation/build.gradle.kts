@@ -18,4 +18,9 @@ dependencies {
     implementation(Dependencies.liveData)
     implementation(Dependencies.viewModel)
     implementation(Dependencies.javaxInject)
+
+    testImplementation(AndroidTestDependencies.coreTesting)
+    testImplementation(TestDependencies.junit)
+    testImplementation(TestDependencies.kotlinTest)
+    testImplementation(TestDependencies.mockk)
 }
