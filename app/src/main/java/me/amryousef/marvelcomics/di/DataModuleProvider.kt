@@ -8,10 +8,9 @@ import dagger.Provides
 import me.amryousef.comics.data.api.ComicsService
 import me.amryousef.lib.data.ApiKeyInterceptor
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import java.util.Date
+import java.util.*
 import javax.inject.Singleton
 
 @Module
@@ -33,11 +32,6 @@ class DataModuleProvider {
         val client = OkHttpClient
             .Builder()
             .addInterceptor(apiKeyInterceptor)
-            .addInterceptor(
-                HttpLoggingInterceptor().apply {
-                    setLevel(HttpLoggingInterceptor.Level.BODY)
-                }
-            )
             .build()
         return Retrofit
             .Builder()
