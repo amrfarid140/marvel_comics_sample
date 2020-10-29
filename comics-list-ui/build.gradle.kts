@@ -3,6 +3,9 @@ plugins {
 }
 
 android {
+    defaultConfig {
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
     buildFeatures {
         viewBinding = true
     }
@@ -23,4 +26,14 @@ dependencies {
     implementation(Dependencies.liveData)
     implementation(Dependencies.viewModel)
     implementation(Dependencies.picasso)
+
+    androidTestImplementation(AndroidTestDependencies.coreTesting)
+    androidTestImplementation(AndroidTestDependencies.fragmentTesting)
+    androidTestImplementation(AndroidTestDependencies.androidJunitExt)
+    androidTestImplementation(AndroidTestDependencies.espressoCore)
+    androidTestImplementation(AndroidTestDependencies.testCore)
+    androidTestImplementation(AndroidTestDependencies.testRules)
+    androidTestImplementation(AndroidTestDependencies.testRunner)
+    androidTestImplementation(TestDependencies.mockk)
+    androidTestImplementation(project(":lib-ui-test"))
 }
