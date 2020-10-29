@@ -18,4 +18,6 @@ dependencies {
 
     implementation(TestDependencies.junit)
     implementation(TestDependencies.kotlinTest)
+    implementation(TestDependencies.mockk)
+    implementation(TestDependencies.coroutinesTest)
 }

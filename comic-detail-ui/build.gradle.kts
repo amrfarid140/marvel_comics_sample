@@ -35,6 +35,6 @@ dependencies {
     androidTestImplementation(AndroidTestDependencies.testCore)
     androidTestImplementation(AndroidTestDependencies.testRules)
     androidTestImplementation(AndroidTestDependencies.testRunner)
-    androidTestImplementation(TestDependencies.mockk)
+    androidTestImplementation(AndroidTestDependencies.mockkAndroid)
     androidTestImplementation(project(":lib-ui-test"))
 }
