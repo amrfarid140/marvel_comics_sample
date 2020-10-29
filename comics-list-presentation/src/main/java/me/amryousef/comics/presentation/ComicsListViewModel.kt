@@ -53,13 +53,17 @@ class ComicsListViewModel @Inject constructor(
                     } ?: ViewState.Ready(newState)
                 }
                 is UseCaseResult.Error -> {
-                    _event.value = ComicsListEvent.LoadMoreFailed
-                    _state.value = (_state.value as? ViewState.Ready)?.let {
-                        ViewState.Ready(
-                            data = it.data.copy(
-                                items = it.data.items.filterIsInstance<ComicListItemState.Item>()
+                    if (_state.value is ViewState.Loading) {
+                        _state.value = ViewState.Error
+                    } else {
+                        _event.value = ComicsListEvent.LoadMoreFailed
+                        _state.value = (_state.value as? ViewState.Ready)?.let {
+                            ViewState.Ready(
+                                data = it.data.copy(
+                                    items = it.data.items.filterIsInstance<ComicListItemState.Item>()
+                                )
                             )
-                        )
+                        }
                     }
                 }
             }

@@ -23,4 +23,5 @@ dependencies {
     testImplementation(TestDependencies.junit)
     testImplementation(TestDependencies.kotlinTest)
     testImplementation(TestDependencies.mockk)
+    testImplementation(TestDependencies.coroutinesTest)
 }
